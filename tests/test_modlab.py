@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 
 spec = importlib.util.spec_from_file_location('modlab_core', Path(__file__).parents[1] / 'core.py')
@@ -60,6 +61,23 @@ class ModLabTests(unittest.TestCase):
         restored = self.lab.rollback(lab['lab_id'])
         self.assertEqual(launch(restored['game_path']), 'original')
         self.assertEqual(launch(str(self.game)), 'original')
+
+    def test_hash_and_copy_reject_replaced_source(self):
+        for operation in ('hash', 'copy'):
+            with self.subTest(operation=operation):
+                source = self.root/(operation+'.txt'); source.write_text('original')
+                replacement = self.root/(operation+'-replacement'); replacement.write_text('changed')
+                original = core.os.fstat; calls = 0
+                def replace(fd):
+                    nonlocal calls
+                    calls += 1
+                    value = original(fd)
+                    if calls == 2: os.replace(replacement, source)
+                    return value
+                with patch.object(core.os, 'fstat', side_effect=replace):
+                    with self.assertRaisesRegex(ValueError, 'changed while'):
+                        if operation == 'hash': core.digest(source)
+                        else: core.copy_regular(source, self.root/'copy-output')
 
     def test_stale_inspection(self):
         plan = self.lab.inspect(self.id, str(self.zip))

@@ -17,11 +17,22 @@ MAX_ZIP_BYTES = 2 * 1024**3
 PRIVATE = {'.ssh', '.gnupg', '.aws', '.azure', '.codex', '.docker', '.kube', '.pki', '.config', '.hermes'}
 
 
+def identity(value):
+    return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
+
+
 def digest(path):
-    h = hashlib.sha256()
-    with path.open('rb') as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b''):
+    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    with os.fdopen(fd, 'rb') as stream:
+        before = os.fstat(stream.fileno())
+        if not stat.S_ISREG(before.st_mode): raise ValueError('Only regular files can be hashed')
+        h = hashlib.sha256()
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
             h.update(chunk)
+        after = os.fstat(stream.fileno())
+    current = path.lstat()
+    if identity(before) != identity(after) or identity(after) != identity(current) or not stat.S_ISREG(current.st_mode):
+        raise ValueError('File changed while hashing')
     return h.hexdigest()
 
 
@@ -49,7 +60,8 @@ def copy_regular(source, destination):
                 shutil.copyfileobj(src, dst, 1024 * 1024)
                 os.fchmod(dst.fileno(), stat.S_IMODE(before.st_mode))
             after = os.fstat(fd)
-            if (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns):
+            current = Path(source).lstat()
+            if identity(before) != identity(after) or identity(after) != identity(current) or not stat.S_ISREG(current.st_mode):
                 raise ValueError('File changed while copying')
         os.utime(destination, ns=(before.st_atime_ns, before.st_mtime_ns), follow_symlinks=False)
     finally:
