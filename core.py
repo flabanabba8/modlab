@@ -21,8 +21,13 @@ def identity(value):
     return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
 
 
+def link_or_reparse(path):
+    info = Path(path).lstat()
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0))
+
+
 def digest(path):
-    if path.is_symlink(): raise ValueError('Symlinks are unsupported')
+    if link_or_reparse(path): raise ValueError('Symlinks and reparse points are unsupported')
     fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0))
     with os.fdopen(fd, 'rb') as stream:
         before = os.fstat(stream.fileno())
@@ -41,8 +46,8 @@ def source_path(value):
     p = Path(value).expanduser()
     if any(part in PRIVATE for part in p.parts):
         raise ValueError('Private configuration paths are not supported')
-    if p.is_symlink():
-        raise ValueError('Symlink inputs are not supported')
+    if link_or_reparse(p):
+        raise ValueError('Symlink and reparse-point inputs are not supported')
     p = p.resolve(strict=True)
     if any(part in PRIVATE for part in p.parts):
         raise ValueError('Private configuration paths are not supported')
@@ -51,7 +56,7 @@ def source_path(value):
 
 def copy_regular(source, destination):
     """Copy a regular file, rejecting symlinks and detecting identity changes."""
-    if Path(source).is_symlink(): raise ValueError('Symlinks are unsupported')
+    if link_or_reparse(source): raise ValueError('Symlinks and reparse points are unsupported')
     fd = os.open(source, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
     try:
         with os.fdopen(fd, 'rb', closefd=False) as src:
@@ -85,8 +90,8 @@ def tree(root):
             raise ValueError('Game exceeds lab size or file-count limit')
         for name in dirs + files:
             p = Path(directory) / name
-            if p.is_symlink() or not (p.is_dir() or p.is_file()):
-                raise ValueError('Symlinks and special files are not supported')
+            if link_or_reparse(p) or not (p.is_dir() or p.is_file()):
+                raise ValueError('Symlinks, reparse points and special files are not supported')
         for name in files:
             p = Path(directory) / name
             rel = p.relative_to(root).as_posix()
@@ -156,7 +161,7 @@ class Lab:
         if not isinstance(lab_id, str) or len(lab_id) != 32 or any(c not in '0123456789abcdef' for c in lab_id):
             raise ValueError('Invalid lab ID')
         p = self.root / lab_id
-        if not p.is_dir() or p.is_symlink():
+        if not p.is_dir() or link_or_reparse(p):
             raise ValueError('Lab not found')
         return p
 
