@@ -1,6 +1,5 @@
 """Local, full-copy revisions; no game process or source directory is modified."""
 import contextlib
-import fcntl
 import hashlib
 import json
 import os
@@ -9,6 +8,7 @@ import shutil
 import stat
 import uuid
 import zipfile
+from . import locking
 
 MAX_FILES = 100_000
 MAX_BYTES = 50 * 1024**3
@@ -22,7 +22,8 @@ def identity(value):
 
 
 def digest(path):
-    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    if path.is_symlink(): raise ValueError('Symlinks are unsupported')
+    fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0))
     with os.fdopen(fd, 'rb') as stream:
         before = os.fstat(stream.fileno())
         if not stat.S_ISREG(before.st_mode): raise ValueError('Only regular files can be hashed')
@@ -49,8 +50,9 @@ def source_path(value):
 
 
 def copy_regular(source, destination):
-    """Copy an already selected regular file without following a final symlink."""
-    fd = os.open(source, os.O_RDONLY | os.O_NOFOLLOW)
+    """Copy a regular file, rejecting symlinks and detecting identity changes."""
+    if Path(source).is_symlink(): raise ValueError('Symlinks are unsupported')
+    fd = os.open(source, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
     try:
         with os.fdopen(fd, 'rb', closefd=False) as src:
             before = os.fstat(fd)
@@ -63,7 +65,8 @@ def copy_regular(source, destination):
             current = Path(source).lstat()
             if identity(before) != identity(after) or identity(after) != identity(current) or not stat.S_ISREG(current.st_mode):
                 raise ValueError('File changed while copying')
-        os.utime(destination, ns=(before.st_atime_ns, before.st_mtime_ns), follow_symlinks=False)
+        if os.utime in os.supports_follow_symlinks:
+            os.utime(destination, ns=(before.st_atime_ns, before.st_mtime_ns), follow_symlinks=False)
     finally:
         os.close(fd)
     return destination
@@ -146,8 +149,7 @@ class Lab:
 
     @contextlib.contextmanager
     def locked(self):
-        with (self.root / '.lock').open('a') as f:
-            fcntl.flock(f, fcntl.LOCK_EX)
+        with locking.exclusive_lock(self.root / '.lock', 'Another ModLab operation is running'):
             yield
 
     def lab(self, lab_id):
@@ -177,7 +179,7 @@ class Lab:
 
     def create(self, source_path):
         source = globals()['source_path'](source_path)
-        if not source.is_dir() or source == Path('/') or source == Path.home().resolve():
+        if not source.is_dir() or source == Path(source.anchor) or source == Path.home().resolve():
             raise ValueError('Select a specific game directory')
         if source == self.root or source in self.root.parents or self.root in source.parents:
             raise ValueError('Game and lab directories must not overlap')

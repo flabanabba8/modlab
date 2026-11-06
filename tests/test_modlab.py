@@ -8,9 +8,10 @@ import unittest
 from unittest.mock import patch
 import zipfile
 
-spec = importlib.util.spec_from_file_location('modlab_core', Path(__file__).parents[1] / 'core.py')
-core = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(core)
+root = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location('modlab_fixture', root/'__init__.py', submodule_search_locations=[str(root)])
+plugin = importlib.util.module_from_spec(spec); sys.modules[spec.name] = plugin; spec.loader.exec_module(plugin)
+core = plugin.core
 
 class ModLabTests(unittest.TestCase):
     def setUp(self):
@@ -48,6 +49,18 @@ class ModLabTests(unittest.TestCase):
         self.assertEqual((Path(restored['game_path']) / 'data.txt').read_text(), 'modified')
         with self.assertRaisesRegex(ValueError, 'not a recorded'):
             self.lab.select_preserved(self.id, rolled['preserved_revision'])
+
+    def test_busy_lab_lock_refuses_another_owner(self):
+        with self.lab.locked():
+            with self.assertRaisesRegex(RuntimeError, 'Another ModLab'):
+                with self.lab.locked(): pass
+
+    def test_copy_skips_unsafe_timestamp_update_when_nofollow_unavailable(self):
+        source=self.root/'time-source.txt';source.write_text('fixture')
+        destination=self.root/'time-copy.txt'
+        with patch.object(core.os,'supports_follow_symlinks',set()), patch.object(core.os,'utime') as update:
+            core.copy_regular(source,destination)
+        update.assert_not_called();self.assertEqual(destination.read_text(),'fixture')
 
     def test_isolated_executable_fixture_across_revisions(self):
         (self.game / 'run.py').write_text('from pathlib import Path\nprint(Path("data.txt").read_text())\n')
@@ -138,7 +151,7 @@ class ModLabTests(unittest.TestCase):
         target.write_text('private fixture')
         link = self.root / 'link'
         link.symlink_to(target)
-        with self.assertRaises(OSError):
+        with self.assertRaises((OSError, ValueError)):
             core.copy_regular(link, self.root / 'copied')
         self.assertFalse((self.root / 'copied').exists())
 
