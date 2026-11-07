@@ -65,7 +65,7 @@ def copy_regular(source, destination):
                 raise ValueError('Only regular files can be copied')
             with open(destination, 'xb') as dst:
                 shutil.copyfileobj(src, dst, 1024 * 1024)
-                os.fchmod(dst.fileno(), stat.S_IMODE(before.st_mode))
+                if os.name != 'nt': os.fchmod(dst.fileno(), stat.S_IMODE(before.st_mode))
             after = os.fstat(fd)
             current = Path(source).lstat()
             if identity(before) != identity(after) or identity(after) != identity(current) or not stat.S_ISREG(current.st_mode):
