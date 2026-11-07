@@ -44,12 +44,12 @@ def digest(path):
 
 def source_path(value):
     p = Path(value).expanduser()
-    if any(part in PRIVATE for part in p.parts):
+    if any(part.casefold() in PRIVATE for part in p.parts):
         raise ValueError('Private configuration paths are not supported')
     if link_or_reparse(p):
         raise ValueError('Symlink and reparse-point inputs are not supported')
     p = p.resolve(strict=True)
-    if any(part in PRIVATE for part in p.parts):
+    if any(part.casefold() in PRIVATE for part in p.parts):
         raise ValueError('Private configuration paths are not supported')
     return p
 
@@ -83,7 +83,7 @@ def tree(root):
     total = 0
     for directory, dirs, files in os.walk(root, followlinks=False):
         for name in dirs:
-            if name in PRIVATE or name == '.git':
+            if name.casefold() in PRIVATE or name.casefold() == '.git':
                 raise ValueError('Game folder contains a private configuration or Git directory')
             directories.add((Path(directory) / name).relative_to(root).as_posix())
         if len(result) + len(directories) > MAX_FILES:

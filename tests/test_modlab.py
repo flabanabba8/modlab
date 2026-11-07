@@ -156,7 +156,7 @@ class ModLabTests(unittest.TestCase):
         self.assertFalse((self.root / 'copied').exists())
 
     def test_private_and_git_directories_not_copied(self):
-        for name in ('.codex', '.git'):
+        for name in ('.codex', '.git', '.CoDeX', '.GiT'):
             directory = self.game/name
             directory.mkdir()
             with self.assertRaisesRegex(ValueError, 'private configuration or Git'):
