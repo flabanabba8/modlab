@@ -1,0 +1,63 @@
+{
+  "curated": "2026-11-10",
+  "status": "source reviewed; focused tests recorded in repository maintenance evidence, not new production/backend acceptance",
+  "sources": [
+    {
+      "package_path": "README.md",
+      "sha256": "35419baff6dfe9bd22ca32090256495b9529586a49aa04f9603b63972055456a"
+    },
+    {
+      "package_path": "VERIFICATION.md",
+      "sha256": "5acf6d32da458ca87e78368060da2fa28e7482fa336f12216842bcf26df38f26"
+    },
+    {
+      "package_path": "__init__.py",
+      "sha256": "6fcc24e6d76e33e92930a0a996be8696cdcc5f41b807d233af2167b386724f60"
+    },
+    {
+      "package_path": "core.py",
+      "sha256": "c2d07dfb134a3ce27de6d73ade66d9367a63be7b86ca47c8e808f109b6134bd7"
+    },
+    {
+      "package_path": "locking.py",
+      "sha256": "202a1dd8ae71120c2ed49ec41c03ea0294bcf3ec06526138e5c3ee8c57a2cb08"
+    },
+    {
+      "package_path": "plugin.yaml",
+      "sha256": "8ca8dc86795d7b36afb2c78369af5ce666ec02b1e0ef4faf258510ed92a37e37"
+    },
+    {
+      "package_path": "skills/modlab/SKILL.md",
+      "sha256": "93c9d3392d0ba71905650a12b3ba0ce3242fdb9589d854cd2bd246c22deec93e"
+    },
+    {
+      "package_path": "tests/test_modlab.py",
+      "sha256": "43a03ba5359672383e4658385ab10e8c4b58c93e3751426aa74a2208d79ef462"
+    },
+    {
+      "package_path": "tests/test_toolkit.py",
+      "sha256": "38569cf871c914b51a5bd4b90bebfc686d114879270cfe3f524189d718d5378a"
+    },
+    {
+      "package_path": "toolkit.py",
+      "sha256": "e365b5b2eeb773a711150487046ac97abf8f83fe1c176f6d8db3f61341d61d81"
+    }
+  ],
+  "quality_review": {
+    "date": "2026-11-10",
+    "method": "main-session source/contract review; actual registration capture; focused offline/mocked tests recorded separately",
+    "scope": [
+      "setup choices",
+      "worked task flow",
+      "failure diagnosis",
+      "acceptance limits",
+      "schema alignment"
+    ],
+    "live_scope": "No new production pipeline, model build, paid speech, install or publication. ModLab UM/REA help calls exercised actual installed CLIs."
+  },
+  "privacy_scope": {
+    "credentials_read": false,
+    "selected_installed_runtime_source_inspected_read_only": true,
+    "private_installs_modified": false
+  }
+}

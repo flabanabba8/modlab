@@ -1,12 +1,18 @@
 name: modlab
-version: "0.1.0"
-description: "Create isolated game copies, inspect ZIP mod conflicts, and roll back revisions."
+version: "0.2.0"
+description: "An all-in-one game-modding workbench using Universal Modder and Reverse Engineer Anything, from recon and assets through builds, testing and showcases."
 author: "ModLab contributors"
 license: GPL-3.0-or-later
 requires_hermes: ">=0.22.0"
 provides_tools:
+  - modlab_resources
+  - modlab_toolkit
+  - modlab_rea_native
   - modlab_create
   - modlab_inspect
   - modlab_apply
   - modlab_rollback
   - modlab_select_preserved
+
+config_schema:
+  rea_native_tool: {type: str, default: "", description: "Optional selected registered native REA tool for this host. CLI analysis and main-agent native REA remain available; no credentials are copied."}

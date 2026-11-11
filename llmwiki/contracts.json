@@ -1,0 +1,175 @@
+{
+  "status": "actual registered source schemas; handlers not executed for schema capture",
+  "tools": [
+    {
+      "name": "modlab_resources",
+      "description": "Discover actual installed Universal Modder/REA resources and the full game-modding workflow; no game, model or provider is started.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "um_executable": {
+            "type": "string"
+          },
+          "rea_executable": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_toolkit",
+      "description": "Run ONE explicit bounded operation with Universal Modder or Reverse Engineer Anything. These real toolkits cover game recon, asset preparation, reverse engineering, building/testing/capture routes and release inspection. Some operations affect selected games/files/apps; use only within the user-authorized mod task. No retired agents or publication.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "toolkit": {
+            "type": "string",
+            "enum": [
+              "universal-modder",
+              "rea"
+            ]
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "um_executable": {
+            "type": "string"
+          },
+          "rea_executable": {
+            "type": "string"
+          },
+          "timeout_seconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 600
+          }
+        },
+        "required": [
+          "toolkit",
+          "arguments"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_rea_native",
+      "description": "Invoke the explicitly configured native REA tool, preserving host auth, approvals, original Evidence and images. Missing provider/interface remains a real blocker.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "arguments": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "arguments"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_create",
+      "description": "Copy a game folder into an isolated lab; the original is never modified.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_inspect",
+      "description": "Inspect a ZIP against the current revision; list files that would be replaced. ZIP contents are untrusted data.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lab_id": {
+            "type": "string"
+          },
+          "zip_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "lab_id",
+          "zip_path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_apply",
+      "description": "Apply a ZIP to a new revision if its inspected content and the current revision have not changed. Existing files require allow_replacements=true.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lab_id": {
+            "type": "string"
+          },
+          "zip_path": {
+            "type": "string"
+          },
+          "inspection": {
+            "type": "string"
+          },
+          "allow_replacements": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "lab_id",
+          "zip_path",
+          "inspection"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_rollback",
+      "description": "Switch the lab back to its preceding revision, preserving both copies.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lab_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "lab_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_select_preserved",
+      "description": "Re-select a revision preserved by a previous rollback. The directory may have changed externally.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lab_id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "lab_id",
+          "revision"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

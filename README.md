@@ -1,12 +1,27 @@
-# ModLab
+# Modlab
 
-Create an isolated working copy of a game folder, review the files a ZIP mod would replace, apply it to a new full-copy revision, and roll back to the preceding revision. The selected game folder is read but never deliberately modified. No game or mod code is executed.
+Build and test game mods from an idea using Universal Modder and Reverse Engineer Anything, including recon, assets, safe revisions and showcase capture.
+
+**At a glance**
+
+- **Install:** `hermes plugins install flabanabba8/modlab`, then `hermes plugins enable modlab`.
+- **Needs:** Hermes 0.22 or later, a game you own, and the companion tools Universal Modder and Reverse Engineer Anything (REA) for the steps that use them.
+- **Internet:** Nothing of its own: it works on local copies of your game folder. Any network use comes from the companion tools you run.
+- **Limits:** Linux is the only platform checked. It works on a copy, not your original install, and does not bundle or distribute any game files, SDKs or proprietary material.
+- **Credits:** Built to drive Universal Modder and Reverse Engineer Anything; their authors and licences apply. Licence: GPL-3.0-or-later.
+- **AI assistance:** Written with AI coding assistants (Anthropic Claude and OpenAI Codex agents) under the maintainer's direction; what was actually tested is listed in VERIFICATION.md.
+
+Read the [setup/task guide](llmwiki/task-guide.md) and [skill](skills/modlab/SKILL.md) for the production workflow, resource choices and observable acceptance.
+
+## Supporting tools and detailed limits
+
+Create an isolated working copy of a game folder, review the files a ZIP mod would replace, apply it to a new full-copy revision, and roll back to the preceding revision. The selected game folder is read but never deliberately modified. These copy/revision operations do not execute game/mod code; the separate toolkit interface can run explicitly selected build/test operations.
 
 1. Ask Hermes to create a lab from a specific local game folder. The result includes the working `game_path` and a lab ID.
 2. Ask it to inspect a local ZIP against that lab. Review its additions and replacements. The returned inspection identifies the exact current content and ZIP.
 3. Apply with that inspection. Set `allow_replacements` only after reviewing replacements. If the ZIP or any file in the current revision changes, inspect again.
 4. Roll back to select the preceding revision; the newer copy is retained. Use the returned path when launching a game yourself. A revision preserved by a rollback can be explicitly reselected; inspect it first because its files may have changed outside ModLab. Rollbacks made by older versions did not record the preserved revision for reselection.
 
-Each revision is a full copy. Expect substantial local disk and hashing time; use a game that runs from a copied folder. Locked files, launchers, DRM, saves outside the folder, installers, symbolic links, extended file metadata and platform-specific integrations may prevent a copy from working. Regular-file hashing and copying reject final symlinks, Windows reparse points such as junctions, and changed or atomically replaced files. Where the OS supplies no-follow file opens they are used; Windows lacks that guarantee, and the plugin is not an adversarial filesystem sandbox. POSIX mode and timestamps are copied where supported; Windows permissions and timestamps are not guaranteed. This prototype supports ordinary ZIP file overlays only: it does not resolve logical mod conflicts, run installers, track external saves, or guarantee that a game launches. Rolling back switches the selected directory; it does not stop an already-running game. ZIPs and game files are untrusted data.
+Each revision is a full copy. Expect substantial local disk and hashing time; use a game that runs from a copied folder. Locked files, launchers, DRM, saves outside the folder, installers, symbolic links, extended file metadata and platform-specific integrations may prevent a copy from working. Regular-file hashing and copying reject final symlinks, Windows reparse points such as junctions, and changed or atomically replaced files. Where the OS supplies no-follow file opens they are used; Windows lacks that guarantee, and the plugin is not an adversarial filesystem sandbox. POSIX mode and timestamps are copied where supported; Windows permissions and timestamps are not guaranteed. The copy/revision adapter supports ordinary ZIP file overlays only: it does not resolve logical mod conflicts, run installers, track external saves, or guarantee that a game launches. Rolling back switches the selected directory; it does not stop an already-running game. ZIPs and game files are untrusted data.
 
 Tested on Linux with synthetic local folders, including a small executable fixture run from the original, modified and rolled-back copies. A real local game distribution was also copied, given a synthetic marker and rolled back without launching the game; the original executable remained unchanged. A native Windows synthetic copy, apply, rollback and lock test passed. No real mod or game-launch test has been completed, and Windows ACLs remain unverified. Private data and revisions reside in the Hermes plugin data directory, and persist until removed by the user. Do not share a lab directory without reviewing its contents.
