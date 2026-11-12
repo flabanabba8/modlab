@@ -12,6 +12,35 @@ TOOLS = {
     'modlab_select_preserved': ('Re-select a revision preserved by a previous rollback. The directory may have changed externally.', {'lab_id': {'type': 'string'}, 'revision': {'type': 'string'}}, ['lab_id', 'revision']),
 }
 
+SETTING_KEYS = ('um_executable', 'rea_executable')
+
+
+def owner_settings(ctx):
+    """Plugin settings only the owner can set; the model cannot name a program through tool arguments."""
+    get = getattr(ctx, 'get_config', None)
+    out = {}
+    for key in SETTING_KEYS:
+        try:
+            value = get(key) if get else None
+        except Exception:
+            value = None
+        if value: out[key] = value
+    return out
+
+
+def on_pre_tool_call(tool_name='', args=None, **kwargs):
+    """Every Universal Modder / REA call is shown to the user for approval: it runs a real program on their computer."""
+    if tool_name == 'modlab_toolkit':
+        try:
+            from plugins.plugin_storage import plugin_data_dir
+            from . import resources as R
+            if R.load_profile(plugin_data_dir('modlab')) is None: return None  # the tool answers with the setup interview; nothing runs, so there is nothing to approve
+        except Exception: pass
+        a = args or {}
+        return {'action': 'approve', 'message': 'ModLab will run %s with these arguments: %s. It runs the program the plugin settings name (or the one on PATH) with a clean environment, for at most %s seconds. Confirm only if you asked for this.' % (a.get('toolkit'), ' '.join(map(str, a.get('arguments') or []))[:600], a.get('timeout_seconds', 60))}
+    return None
+
+
 def invoke(name, args, ctx=None, **context):
     from plugins.plugin_storage import plugin_data_dir
     try:
@@ -27,11 +56,11 @@ def invoke(name, args, ctx=None, **context):
                 return json.dumps({**R.interview(root,R.survey(root)),'next':'Do not pick a modding route for the user. Run the interview first (modlab_setup), then repeat this call.'})
         if name=='modlab_resources':
             from .toolkit import resources
-            return json.dumps(resources(**args))
+            return json.dumps(resources(owner_settings(ctx)))
         if name=='modlab_toolkit':
             from .toolkit import run
             from plugins.plugin_storage import plugin_data_dir
-            return json.dumps(run(plugin_data_dir('modlab'),**args))
+            return json.dumps(run(plugin_data_dir('modlab'),settings=owner_settings(ctx),**args))
         if name=='modlab_rea_native':
             tool=ctx.get_config('rea_native_tool')if ctx is not None else None
             if not tool or not callable(getattr(ctx,'dispatch_tool',None)):raise ValueError('No selected native REA interface in this host; use the installed rea CLI or the main agent’s connected REA tools. No analysis was fabricated.')
@@ -42,7 +71,8 @@ def invoke(name, args, ctx=None, **context):
         return json.dumps({'error': str(exc)})
 
 def register(ctx):
-    for name,description,props,required in [('modlab_resources','Discover actual installed Universal Modder/REA resources and the full game-modding workflow; no game, model or provider is started.',{'um_executable':{'type':'string'},'rea_executable':{'type':'string'}},[]),('modlab_toolkit','Run ONE explicit bounded operation with Universal Modder or Reverse Engineer Anything. These real toolkits cover game recon, asset preparation, reverse engineering, building/testing/capture routes and release inspection. Some operations affect selected games/files/apps; use only within the user-authorized mod task. No retired agents or publication.',{'toolkit':{'type':'string','enum':['universal-modder','rea']},'arguments':{'type':'array','items':{'type':'string'}},'um_executable':{'type':'string'},'rea_executable':{'type':'string'},'timeout_seconds':{'type':'integer','minimum':1,'maximum':600}},['toolkit','arguments']),('modlab_rea_native','Invoke the explicitly configured native REA tool, preserving host auth, approvals, original Evidence and images. Missing provider/interface remains a real blocker.',{'arguments':{'type':'object'}},['arguments'])]:
+    if hasattr(ctx, 'register_hook'): ctx.register_hook('pre_tool_call', on_pre_tool_call)
+    for name,description,props,required in [('modlab_resources','Discover actual installed Universal Modder/REA resources and the full game-modding workflow; no game, model or provider is started.',{},[]),('modlab_toolkit','Run ONE explicit bounded operation with Universal Modder or Reverse Engineer Anything (the program is the one the owner set in the plugin settings um_executable / rea_executable, or found on PATH; the model cannot name a program). Hermes asks the user to approve each call. These real toolkits cover game recon, asset preparation, reverse engineering, building/testing/capture routes and release inspection. Some operations affect selected games/files/apps; use only within the user-authorized mod task. No retired agents or publication.',{'toolkit':{'type':'string','enum':['universal-modder','rea']},'arguments':{'type':'array','items':{'type':'string'}},'timeout_seconds':{'type':'integer','minimum':1,'maximum':600}},['toolkit','arguments']),('modlab_rea_native','Invoke the explicitly configured native REA tool, preserving host auth, approvals, original Evidence and images. Missing provider/interface remains a real blocker.',{'arguments':{'type':'object'}},['arguments'])]:
         ctx.register_tool(name=name,toolset='modlab',schema={'name':name,'description':description,'parameters':{'type':'object','properties':props,'required':required,'additionalProperties':False}},handler=lambda args,_name=name,**kw:invoke(_name,args,ctx,**kw))
     if hasattr(ctx, 'register_skill'):
         from pathlib import Path

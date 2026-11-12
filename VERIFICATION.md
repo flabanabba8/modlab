@@ -7,6 +7,12 @@
 - A separate read-only test copied an existing local game distribution into a temporary lab, applied a synthetic marker file to a new revision, rolled back and verified the original executable's hash was unchanged. The game was not launched and no original installation was modified.
 - This file-handling check does not establish that a copied game launches, that a real mod works, or that external saves and installers are handled. Broader Windows behavior, a reviewed demonstration and the full publication audit remain unverified.
 
+## 0.3.1 - maintainer review (2026-11-12)
+
+Maintainer review. um_executable and rea_executable are owner settings, not tool arguments; modlab_toolkit asks for approval; toolkit subprocesses get a minimal environment; a bug that left toolkit-run output unpruned is fixed. Re-tested: 64 offline tests, all passing; plugin preflight reports no findings.
+
+Live test through Hermes 0.23.0 (2026-11-12, own profile) on a real game folder: interview, lab created (107 MB), inspect, apply, rollback, cleanup dry run with the limits shown; the real um binary ran with a clean environment. Found and fixed: approval was asked before the interview had been done.
+
 ## 2026-11-10 maintained scope revision
 
 Fifteen tests pass: existing isolated revision tests plus blocked retired/publication/setup routes and actual installed UM/REA read-only help calls, plus native original-result/context preservation and recursive-backend refusal. No new game modification/build was performed; these checks do not prove every toolkit provider/platform. Hermes admission and retirement preflight pass; detailed local receipts are retained in the contest maintenance evidence. Old evidence above keeps its original scope.

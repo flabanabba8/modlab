@@ -65,21 +65,14 @@
       "description": "Discover actual installed Universal Modder/REA resources and the full game-modding workflow; no game, model or provider is started.",
       "parameters": {
         "type": "object",
-        "properties": {
-          "um_executable": {
-            "type": "string"
-          },
-          "rea_executable": {
-            "type": "string"
-          }
-        },
+        "properties": {},
         "required": [],
         "additionalProperties": false
       }
     },
     {
       "name": "modlab_toolkit",
-      "description": "Run ONE explicit bounded operation with Universal Modder or Reverse Engineer Anything. These real toolkits cover game recon, asset preparation, reverse engineering, building/testing/capture routes and release inspection. Some operations affect selected games/files/apps; use only within the user-authorized mod task. No retired agents or publication.",
+      "description": "Run ONE explicit bounded operation with Universal Modder or Reverse Engineer Anything (the program is the one the owner set in the plugin settings um_executable / rea_executable, or found on PATH; the model cannot name a program). Hermes asks the user to approve each call. These real toolkits cover game recon, asset preparation, reverse engineering, building/testing/capture routes and release inspection. Some operations affect selected games/files/apps; use only within the user-authorized mod task. No retired agents or publication.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -95,12 +88,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "um_executable": {
-            "type": "string"
-          },
-          "rea_executable": {
-            "type": "string"
           },
           "timeout_seconds": {
             "type": "integer",

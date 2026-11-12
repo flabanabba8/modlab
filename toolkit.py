@@ -5,7 +5,9 @@ from pathlib import Path
 UM_GROUPS={'scan','sprite','render3d','video','win','backup','kb','publish'}
 REA_ADMIN={'setup','uninstall','install','update','upgrade','config','doctor','serve','server'}
 
-def resources(um_executable='',rea_executable=''):
+def resources(settings=None):
+    settings=settings or {}
+    um_executable=settings.get('um_executable','');rea_executable=settings.get('rea_executable','')
     def resolve(chosen,name):
         value=str(Path(chosen).expanduser())if chosen else shutil.which(name)
         return {'installed':bool(value and Path(value).is_file()),'executable':value,'notice':'CLI presence only; game/platform/provider capabilities require the selected operation’s actual contract.'}
@@ -31,7 +33,9 @@ def prune_runs(root):
     return removed
 
 
-def run(root,toolkit,arguments,um_executable='',rea_executable='',timeout_seconds=60):
+def run(root,toolkit,arguments,timeout_seconds=60,settings=None):
+    settings=settings or {}
+    um_executable=settings.get('um_executable','');rea_executable=settings.get('rea_executable','')
     if toolkit not in('universal-modder','rea')or not isinstance(arguments,list)or not arguments or len(arguments)>80 or not all(isinstance(x,str)and 0<len(x)<=4000 for x in arguments):raise ValueError('Select a real toolkit and bounded argument array')
     if type(timeout_seconds)is not int or not 1<=timeout_seconds<=600:raise ValueError('Choose a1–600second explicit operation bound')
     if toolkit=='universal-modder':
@@ -43,7 +47,7 @@ def run(root,toolkit,arguments,um_executable='',rea_executable='',timeout_second
         if arguments[0]in REA_ADMIN:raise ValueError('Select an analysis operation; this tool does not alter REA/client installations')
         executable=rea_executable or shutil.which('rea')
     if not executable or not Path(executable).expanduser().is_file():raise ValueError('Selected toolkit is unavailable; configure an installed executable or use supported native REA tools')
-    root=Path(root)/'toolkit-runs';root.mkdir(parents=True,exist_ok=True,mode=0o700);work=Path(tempfile.mkdtemp(prefix='run-',dir=root));output=work/'stdout.txt';error=work/'stderr.log'
+    base=root;root=Path(root)/'toolkit-runs';root.mkdir(parents=True,exist_ok=True,mode=0o700);work=Path(tempfile.mkdtemp(prefix='run-',dir=root));output=work/'stdout.txt';error=work/'stderr.log'
     env={k:v for k,v in os.environ.items()if k in('PATH','HOME','LANG','LC_ALL','SystemRoot','TEMP','TMP','TMPDIR')}
     with output.open('wb')as out,error.open('wb')as err:
         output.chmod(0o600);error.chmod(0o600);process=subprocess.Popen([str(Path(executable).expanduser()),*arguments],stdout=out,stderr=err,stdin=subprocess.DEVNULL,env=env,start_new_session=os.name!='nt')
@@ -55,7 +59,7 @@ def run(root,toolkit,arguments,um_executable='',rea_executable='',timeout_second
     if output.stat().st_size>2*1024**2:raise ValueError('Toolkit output exceeds2MiB; request a bounded operation or use its supported retained-evidence interface. Private full output retained.')
     if process.returncode:raise RuntimeError('Selected toolkit operation failed; inspect its private diagnostics. No success or automatic retry inferred.')
     body=output.read_text(errors='replace')
-    prune_runs(root)
+    prune_runs(base)
     try:result=json.loads(body)
     except ValueError:result={'text':body}
     return {'toolkit':toolkit,'exit_code':0,'result':result,'notice':'Actual selected CLI output; provider/platform readiness and result meaning depend on the operation. No model worker was launched.'}
