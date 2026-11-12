@@ -41,3 +41,5 @@ provider pricing, availability, licenses and schema details before relying on
 an old snapshot. Record task-specific additions in the user's private project
 notes rather than modifying the shipped package automatically. Never store API
 keys, private deployment/device/account identifiers or copyrighted source text.
+
+- [Modding routes by engine, tools, anti-cheat and upload rules](modding-routes.md) - dated, source-linked; read before recommending a route

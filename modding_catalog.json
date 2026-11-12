@@ -1,0 +1,1181 @@
+{
+  "verified": "2026-11-12",
+  "tools": [
+    {
+      "id": "dotnet",
+      "name": ".NET SDK / runtime",
+      "what": "builds and runs C# mod loaders and tools (MelonLoader Il2Cpp needs the .NET 6 desktop runtime; UndertaleModTool builds on .NET 10)",
+      "commands": [
+        "dotnet"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://github.com/dotnet/sdk",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "python",
+      "name": "Python 3",
+      "what": "runs UnityPy, unrpa, unrpyc, Frida scripts and most asset tools",
+      "commands": [
+        "python3",
+        "python"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://www.python.org/downloads/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "java",
+      "name": "Java (JDK)",
+      "what": "needed by Minecraft loaders and Java/Kotlin build tools",
+      "commands": [
+        "java"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://adoptium.net/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "node",
+      "name": "Node.js",
+      "what": "runs and unpacks Electron/NW.js game scripts",
+      "commands": [
+        "node"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://nodejs.org/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "what": "version control for mod source",
+      "commands": [
+        "git"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://git-scm.com/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "wine",
+      "name": "Wine",
+      "what": "runs Windows loaders and tools on Linux",
+      "commands": [
+        "wine"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://www.winehq.org/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "protontricks",
+      "name": "protontricks",
+      "what": "installs Windows components (for example dotnet) into a Steam Proton prefix",
+      "commands": [
+        "protontricks"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://github.com/Matoking/protontricks",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "um",
+      "name": "Universal Modder",
+      "what": "ModLab's game-modding toolkit (scan, sprite, render3d, video, win, backup, kb, publish groups)",
+      "commands": [
+        "um"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://github.com/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "rea",
+      "name": "Reverse Engineer Anything (REA)",
+      "what": "reverse-engineering toolkit used by ModLab (analysis operations only)",
+      "commands": [
+        "rea"
+      ],
+      "license": "",
+      "status": "",
+      "source": "https://github.com/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx",
+      "what": "Unity (and some .NET) mod loader; 5.4.23.6 stable (2026-10-23); stable releases are Unity Mono only",
+      "commands": [],
+      "license": "LGPL-2.1",
+      "status": "maintained (v5.4.23.6, 2026-10-23; v6 only pre-release)",
+      "source": "https://github.com/BepInEx/BepInEx",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "melonloader",
+      "name": "MelonLoader",
+      "what": "Unity Mono and IL2CPP mod loader; Wine/Proton and native Linux supported",
+      "commands": [],
+      "license": "Apache-2.0",
+      "status": "maintained (v0.7.3, 2026-05-14)",
+      "source": "https://github.com/LavaGang/MelonLoader",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "ue4ss",
+      "name": "UE4SS",
+      "what": "Unreal Engine 4/5 scripting and modding loader (Windows binaries; native Linux builds unsupported)",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (v4.0.0, 2026-11-12)",
+      "source": "https://github.com/UE4SS-RE/RE-UE4SS",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "harmony",
+      "name": "Harmony / HarmonyX",
+      "what": "runtime patching library for .NET mods",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (Harmony 2.4.3, 2026-10-11)",
+      "source": "https://github.com/pardeike/Harmony",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "dnspyex",
+      "name": "dnSpyEx",
+      "what": ".NET decompiler and debugger (Windows)",
+      "commands": [],
+      "license": "GPL-3.0",
+      "status": "maintained (v6.6.0, 2026-06-20)",
+      "source": "https://github.com/dnSpyEx/dnSpy",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "ilspy",
+      "name": "ILSpy / ilspycmd",
+      "what": ".NET decompiler (cross-platform CLI ilspycmd)",
+      "commands": [
+        "ilspycmd"
+      ],
+      "license": "MIT",
+      "status": "maintained (v11.2, 2026-10-27)",
+      "source": "https://github.com/icsharpcode/ILSpy",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "cpp2il",
+      "name": "Cpp2IL",
+      "what": "recovers .NET metadata from IL2CPP games",
+      "commands": [],
+      "license": "MIT",
+      "status": "active, pre-release builds only (latest non-pre-release is from 2022)",
+      "source": "https://github.com/SamboyCoding/Cpp2IL",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "il2cppdumper",
+      "name": "Il2CppDumper",
+      "what": "dumps IL2CPP metadata (older tool)",
+      "commands": [],
+      "license": "MIT",
+      "status": "stale (last release 2024-07)",
+      "source": "https://github.com/Perfare/Il2CppDumper",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "assetripper",
+      "name": "AssetRipper",
+      "what": "extracts Unity assets and projects (Unity 3.5 to 6000.4)",
+      "commands": [],
+      "license": "GPL-3.0",
+      "status": "maintained (2.0.0, 2026-08-24)",
+      "source": "https://github.com/AssetRipper/AssetRipper",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "unitypy",
+      "name": "UnityPy",
+      "what": "Python library to read and write Unity asset bundles",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (push 2026-10-05)",
+      "source": "https://github.com/K0lb3/UnityPy",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "uabea",
+      "name": "UABEA",
+      "what": "Unity asset bundle editor",
+      "commands": [],
+      "license": "MIT",
+      "status": "low activity (v8, 2024-11)",
+      "source": "https://github.com/nesrak1/UABEA",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "fmodel",
+      "name": "FModel",
+      "what": "Unreal asset browser and exporter",
+      "commands": [],
+      "license": "GPL-3.0",
+      "status": "maintained (2026-10-31)",
+      "source": "https://github.com/4sval/FModel",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "uassetgui",
+      "name": "UAssetGUI",
+      "what": "edits Unreal .uasset files",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (v1.1.0, 2026-05-01)",
+      "source": "https://github.com/atenfyr/UAssetGUI",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "repak",
+      "name": "repak",
+      "what": "library and CLI for Unreal .pak files (list, unpack, pack, --aes-key); does not mention IoStore",
+      "commands": [
+        "repak"
+      ],
+      "license": "Apache-2.0",
+      "status": "maintained (v0.2.3, 2026-01-02)",
+      "source": "https://github.com/trumank/repak",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "gdre-tools",
+      "name": "GDRE Tools (gdsdecomp)",
+      "what": "recovers and extracts Godot PCK/EXE/APK (Godot 2, 3, 4; --key for encrypted packs)",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (v2.7.4, 2026-10-11)",
+      "source": "https://github.com/GDRETools/gdsdecomp",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "unrpa",
+      "name": "unrpa",
+      "what": "extracts Ren'Py .rpa archives",
+      "commands": [
+        "unrpa"
+      ],
+      "license": "GPL-3.0",
+      "status": "stale (last release 2019, Python 3.7+)",
+      "source": "https://github.com/Lattyware/unrpa",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "unrpyc",
+      "name": "unrpyc",
+      "what": "decompiles Ren'Py .rpyc scripts",
+      "commands": [],
+      "license": "see repo",
+      "status": "active (v2.0.4, 2026-02-24)",
+      "source": "https://github.com/CensoredUsername/unrpyc",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "undertalemodtool",
+      "name": "UndertaleModTool",
+      "what": "edits GameMaker data.win/game.* files (GUI Windows only; CLI for Windows, Ubuntu, macOS)",
+      "commands": [],
+      "license": "see repo",
+      "status": "maintained (0.9.2.0, 2026-08-23; push 2026-11-12)",
+      "source": "https://github.com/UnderminersTeam/UndertaleModTool",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "what": "disassembler/decompiler for native code",
+      "commands": [
+        "ghidraRun"
+      ],
+      "license": "Apache-2.0",
+      "status": "maintained (12.2, 2026-10-22)",
+      "source": "https://github.com/NationalSecurityAgency/ghidra",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "frida",
+      "name": "Frida",
+      "what": "dynamic instrumentation for native and managed games",
+      "commands": [
+        "frida"
+      ],
+      "license": "see repo",
+      "status": "maintained (17.26.2, 2026-11-07)",
+      "source": "https://github.com/frida/frida",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "x64dbg",
+      "name": "x64dbg",
+      "what": "Windows debugger",
+      "commands": [],
+      "license": "see repo",
+      "status": "maintained (2026.05.27)",
+      "source": "https://github.com/x64dbg/x64dbg",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "cheatengine",
+      "name": "Cheat Engine",
+      "what": "memory scanner (Windows; last release 2023)",
+      "commands": [],
+      "license": "",
+      "status": "last release 2023-02",
+      "source": "https://github.com/cheat-engine/cheat-engine",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "renderdoc",
+      "name": "RenderDoc",
+      "what": "graphics frame capture and debugger",
+      "commands": [
+        "qrenderdoc",
+        "renderdoccmd"
+      ],
+      "license": "MIT",
+      "status": "maintained (v1.47, 2026-10-31)",
+      "source": "https://github.com/baldurk/renderdoc",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "reshade",
+      "name": "ReShade",
+      "what": "post-processing injector (can be blocked by some anti-cheat)",
+      "commands": [],
+      "license": "BSD-3-Clause",
+      "status": "maintained (v6.8.0)",
+      "source": "https://github.com/crosire/reshade",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "mo2",
+      "name": "Mod Organizer 2",
+      "what": "mod manager with virtual file system",
+      "commands": [],
+      "license": "GPL-3.0",
+      "status": "maintained (v2.5.2, 2024-08)",
+      "source": "https://github.com/ModOrganizer2/modorganizer",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "vortex",
+      "name": "Vortex",
+      "what": "Nexus Mods manager",
+      "commands": [],
+      "license": "GPL-3.0",
+      "status": "maintained (v2.10.1, 2026-11-05)",
+      "source": "https://github.com/Nexus-Mods/Vortex",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "r2modman",
+      "name": "r2modman",
+      "what": "Thunderstore mod manager",
+      "commands": [],
+      "license": "MIT",
+      "status": "maintained (v3.2.21, 2026-10-30)",
+      "source": "https://github.com/ebkr/r2modmanPlus",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "xedit",
+      "name": "xEdit (TES5Edit)",
+      "what": "Bethesda plugin editor",
+      "commands": [],
+      "license": "MPL-2.0",
+      "status": "maintained (4.1.5f, 2024-04; pushes 2026-11)",
+      "source": "https://github.com/TES5Edit/TES5Edit",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "skse",
+      "name": "SKSE / F4SE",
+      "what": "Skyrim and Fallout 4 script extenders, matched to the game version",
+      "commands": [],
+      "license": "",
+      "status": "updated per game patch (SKSE AE 2.3.1 for game 1.7.104; F4SE 0.7.9 for runtime 1.11.240)",
+      "source": "https://skse.silverlock.org/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "fabric",
+      "name": "Fabric / NeoForge / Quilt",
+      "what": "Minecraft Java mod loaders",
+      "commands": [],
+      "license": "Apache-2.0 (Fabric)",
+      "status": "maintained (Fabric Loader 0.20.1; NeoForge 26.3.0.102; Quilt 0.31.0-beta.5)",
+      "source": "https://github.com/FabricMC/fabric-loader",
+      "verified": "2026-11-12"
+    }
+  ],
+  "engines": [
+    {
+      "id": "unity-mono",
+      "name": "Unity (Mono)",
+      "signatures": [
+        {
+          "glob": "UnityPlayer.dll",
+          "basis": "verified"
+        },
+        {
+          "glob": "UnityPlayer.so",
+          "basis": "verified"
+        },
+        {
+          "glob": "*_Data/Managed",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/UnityPlayer.dll",
+          "basis": "convention (game nested one folder down, seen in a real library)"
+        },
+        {
+          "glob": "*/*_Data/Managed",
+          "basis": "convention (nested)"
+        }
+      ],
+      "min_hits": 2,
+      "routes": [
+        {
+          "id": "bepinex-mono",
+          "name": "BepInEx plugin (Mono)",
+          "kind": "loader",
+          "needs_tools": [
+            "bepinex",
+            "dotnet"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained; stable releases exist for Unity Mono on Windows, macOS and Linux",
+          "source": "https://github.com/BepInEx/BepInEx",
+          "notes": "Use the x86 build for 32-bit games, x64 for 64-bit; macOS supports 64-bit only. Under Proton use the Windows build with WINEDLLOVERRIDES=\"winhttp.dll=n,b\" %command%.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "melonloader-mono",
+          "name": "MelonLoader mod (Mono)",
+          "kind": "loader",
+          "needs_tools": [
+            "melonloader",
+            "dotnet"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained",
+          "source": "https://github.com/LavaGang/MelonLoader",
+          "notes": "Windows, Linux (native, Wine, Proton) and macOS per its docs. Proton launch option WINEDLLOVERRIDES=\"version=n,b\" %command%.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "unity-assets-edit",
+          "name": "Edit assets (AssetRipper / UnityPy / UABEA)",
+          "kind": "data",
+          "needs_tools": [
+            "assetripper",
+            "unitypy"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained",
+          "source": "https://github.com/AssetRipper/AssetRipper",
+          "notes": "Extract, change and repack assets without code.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "ilspy",
+        "dnspyex",
+        "assetripper"
+      ],
+      "data_only": "Config files via BepInEx/config; asset extraction and repack with AssetRipper or UnityPy.",
+      "pitfalls": [
+        "32-bit vs 64-bit loader build must match the game",
+        "Online games with anti-cheat reject modified files"
+      ]
+    },
+    {
+      "id": "unity-il2cpp",
+      "name": "Unity (IL2CPP)",
+      "signatures": [
+        {
+          "glob": "UnityPlayer.dll",
+          "basis": "verified"
+        },
+        {
+          "glob": "UnityPlayer.so",
+          "basis": "verified"
+        },
+        {
+          "glob": "GameAssembly.dll",
+          "basis": "verified"
+        },
+        {
+          "glob": "GameAssembly.so",
+          "basis": "verified"
+        },
+        {
+          "glob": "*_Data/il2cpp_data",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/GameAssembly.dll",
+          "basis": "convention (nested)"
+        },
+        {
+          "glob": "*/*_Data/il2cpp_data",
+          "basis": "convention (nested)"
+        }
+      ],
+      "min_hits": 2,
+      "routes": [
+        {
+          "id": "melonloader-il2cpp",
+          "name": "MelonLoader mod (Il2Cpp)",
+          "kind": "loader",
+          "needs_tools": [
+            "melonloader",
+            "dotnet"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained; recommended first for IL2CPP",
+          "source": "https://github.com/LavaGang/MelonLoader",
+          "notes": "Needs the .NET 6 Desktop Runtime. Under Proton install it with \"protontricks <appid> dotnetdesktop6\" and prefer a clean prefix.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "bepinex-il2cpp",
+          "name": "BepInEx IL2CPP",
+          "kind": "loader",
+          "needs_tools": [
+            "bepinex",
+            "dotnet"
+          ],
+          "platforms": [
+            "windows",
+            "linux"
+          ],
+          "status": "only via Bleeding Edge builds; docs and README disagree (build dates UNVERIFIED)",
+          "source": "https://github.com/BepInEx/BepInEx",
+          "notes": "README says only Unity Mono has stable releases; IL2CPP is Windows and Linux, not macOS.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "unity-assets-edit-il2cpp",
+          "name": "Edit assets (AssetRipper / UnityPy / UABEA)",
+          "kind": "data",
+          "needs_tools": [
+            "assetripper",
+            "unitypy"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained",
+          "source": "https://github.com/AssetRipper/AssetRipper",
+          "notes": "",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "cpp2il",
+        "il2cppdumper",
+        "assetripper",
+        "ghidra"
+      ],
+      "data_only": "Asset extraction and repack with AssetRipper or UnityPy.",
+      "pitfalls": [
+        "Cpp2IL has only pre-release builds; Il2CppDumper is stale",
+        "IL2CPP loader support is less stable than Mono"
+      ]
+    },
+    {
+      "id": "unreal",
+      "name": "Unreal Engine 4/5",
+      "signatures": [
+        {
+          "glob": "*/Binaries/Win64",
+          "basis": "convention (UE4SS install docs name this folder)"
+        },
+        {
+          "glob": "*/Content/Paks",
+          "basis": "convention"
+        },
+        {
+          "glob": "*/Content/Paks/*.pak",
+          "basis": "convention"
+        },
+        {
+          "glob": "*/Content/Paks/*.utoc",
+          "basis": "convention (IoStore containers are documented by Epic)"
+        },
+        {
+          "glob": "Engine",
+          "basis": "convention"
+        }
+      ],
+      "min_hits": 2,
+      "routes": [
+        {
+          "id": "ue4ss",
+          "name": "UE4SS scripting mods",
+          "kind": "loader",
+          "needs_tools": [
+            "ue4ss"
+          ],
+          "platforms": [
+            "windows"
+          ],
+          "status": "maintained (v4.0.0); native Linux builds unsupported, no Proton guidance in its docs",
+          "source": "https://github.com/UE4SS-RE/RE-UE4SS",
+          "notes": "Installs into {game}/GameName/Binaries/Win64 as a dwmapi.dll proxy; the top-level exe is a launcher wrapper. Expect per-game fixes.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "unreal-pak-edit",
+          "name": "Browse and repack assets (FModel / repak / UAssetGUI)",
+          "kind": "data",
+          "needs_tools": [
+            "fmodel",
+            "repak",
+            "uassetgui"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained",
+          "source": "https://github.com/trumank/repak",
+          "notes": "Pak files may be AES-encrypted or signed (Epic project settings); IoStore (.utoc/.ucas) is a different container.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "fmodel",
+        "uassetgui",
+        "repak",
+        "ghidra"
+      ],
+      "data_only": "Replace or add .pak contents with repak after unpacking; encrypted paks need the AES key.",
+      "pitfalls": [
+        "Easy Anti-Cheat blocks modified files in protected multiplayer",
+        "Encrypted or signed paks cannot be edited without the key"
+      ]
+    },
+    {
+      "id": "godot",
+      "name": "Godot",
+      "signatures": [
+        {
+          "glob": "*.pck",
+          "basis": "verified"
+        },
+        {
+          "glob": "*godot*",
+          "basis": "convention: a godot-named library (for example godotsteam) beside the exe; a pack embedded in the exe leaves no .pck file"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "godot-resource-pack",
+          "name": "Patch pack (.pck / .zip) loaded by the game",
+          "kind": "data",
+          "needs_tools": [],
+          "platforms": [
+            "any"
+          ],
+          "status": "official Godot feature (ProjectSettings.load_resource_pack / --main-pack)",
+          "source": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html",
+          "notes": "Works only if the game loads extra packs; check with GDRE Tools first.",
+          "verified": "2026-11-12"
+        },
+        {
+          "id": "gdre-recover",
+          "name": "Inspect or recover the project (GDRE Tools)",
+          "kind": "re",
+          "needs_tools": [
+            "gdre-tools"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained (v2.7.4)",
+          "source": "https://github.com/GDRETools/gdsdecomp",
+          "notes": "Godot 2, 3 and 4; encrypted PCKs need the key.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "gdre-tools"
+      ],
+      "data_only": "Patch PCK or ZIP resource packs.",
+      "pitfalls": [
+        "A pack can be embedded in the exe (no .pck file); the Godot 3 vs 4 pack-format mapping is UNVERIFIED",
+        "Encrypted PCKs"
+      ]
+    },
+    {
+      "id": "renpy",
+      "name": "Ren'Py",
+      "signatures": [
+        {
+          "glob": "renpy",
+          "basis": "verified"
+        },
+        {
+          "glob": "game/*.rpyc",
+          "basis": "verified"
+        },
+        {
+          "glob": "game/*.rpa",
+          "basis": "verified"
+        }
+      ],
+      "min_hits": 2,
+      "routes": [
+        {
+          "id": "renpy-scripts",
+          "name": "Edit scripts (unrpa + unrpyc, or add .rpy files)",
+          "kind": "data",
+          "needs_tools": [
+            "unrpa",
+            "unrpyc",
+            "python"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "unrpyc active; unrpa stale",
+          "source": "https://github.com/CensoredUsername/unrpyc",
+          "notes": "unrpa extracts .rpa archives; unrpyc decompiles .rpyc (it does not extract archives). Ren'Py reads loose .rpy files placed in game/.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "unrpa",
+        "unrpyc"
+      ],
+      "data_only": "Loose .rpy/.rpyc files and replacement assets in game/.",
+      "pitfalls": [
+        "unrpa has not had a release since 2019"
+      ]
+    },
+    {
+      "id": "gamemaker",
+      "name": "GameMaker",
+      "signatures": [
+        {
+          "glob": "data.win",
+          "basis": "verified"
+        },
+        {
+          "glob": "game.ios",
+          "basis": "verified"
+        },
+        {
+          "glob": "game.unx",
+          "basis": "verified"
+        },
+        {
+          "glob": "game.droid",
+          "basis": "verified"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "undertale-mod-tool",
+          "name": "UndertaleModTool (edit data.win)",
+          "kind": "re",
+          "needs_tools": [
+            "undertalemodtool",
+            "dotnet"
+          ],
+          "platforms": [
+            "windows",
+            "any"
+          ],
+          "status": "maintained (0.9.2.0); GUI Windows only, CLI on Windows/Ubuntu/macOS",
+          "source": "https://github.com/UnderminersTeam/UndertaleModTool",
+          "notes": "No official GUI on Linux/macOS: use the CLI, a WIP cross-platform port, or Wine.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "undertalemodtool"
+      ],
+      "data_only": "Edit sprites, text and code inside data.win with the tool.",
+      "pitfalls": [
+        "Runner exe name is not documented; detect by the data file"
+      ]
+    },
+    {
+      "id": "electron-nwjs",
+      "name": "Electron / NW.js",
+      "signatures": [
+        {
+          "glob": "resources/app.asar",
+          "basis": "verified"
+        },
+        {
+          "glob": "resources/app.asar.unpacked",
+          "basis": "verified"
+        },
+        {
+          "glob": "package.nw",
+          "basis": "verified"
+        },
+        {
+          "glob": "nw.exe",
+          "basis": "verified"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "electron-asar",
+          "name": "Unpack app.asar, edit JavaScript, repack",
+          "kind": "data",
+          "needs_tools": [
+            "node"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "standard Electron tooling",
+          "source": "https://github.com/electron/electron/blob/main/docs/tutorial/asar-archives.md",
+          "notes": "Keep app.asar.unpacked beside it. NW.js apps are package.nw (a zip) or loose files with package.json.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "node"
+      ],
+      "data_only": "Edit the JavaScript and JSON data directly.",
+      "pitfalls": [
+        "RPG Maker MV/MZ games are NW.js apps"
+      ]
+    },
+    {
+      "id": "love2d",
+      "name": "L\u00d6VE (Love2D)",
+      "signatures": [
+        {
+          "glob": "*.love",
+          "basis": "verified"
+        },
+        {
+          "glob": "love.dll",
+          "basis": "verified"
+        },
+        {
+          "glob": "lua51.dll",
+          "basis": "verified"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "love-zip",
+          "name": "Edit the .love archive (a zip with main.lua)",
+          "kind": "data",
+          "needs_tools": [],
+          "platforms": [
+            "any"
+          ],
+          "status": "documented format",
+          "source": "https://love2d.org/wiki/Game_Distribution",
+          "notes": "A fused Windows exe is love.exe + the .love zip appended; unzip the exe to reach the Lua files.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [],
+      "data_only": "Lua source and assets inside the zip.",
+      "pitfalls": []
+    },
+    {
+      "id": "source",
+      "name": "Source / Source 2",
+      "signatures": [
+        {
+          "glob": "gameinfo.txt",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/gameinfo.txt",
+          "basis": "verified"
+        },
+        {
+          "glob": "liblist.gam",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/gameinfo.gi",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/*/gameinfo.gi",
+          "basis": "convention (Source 2 games keep it at game/<mod>/gameinfo.gi, seen in a real library)"
+        },
+        {
+          "glob": "*/*_dir.vpk",
+          "basis": "verified"
+        },
+        {
+          "glob": "*/*/pak01_dir.vpk",
+          "basis": "convention"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "source-vpk-gameinfo",
+          "name": "Loose files or custom content via gameinfo SearchPaths and VPK",
+          "kind": "data",
+          "needs_tools": [],
+          "platforms": [
+            "any"
+          ],
+          "status": "documented on the Valve Developer Community",
+          "source": "https://developer.valvesoftware.com/wiki/Gameinfo.txt",
+          "notes": "gameinfo.txt (Source), gameinfo.gi (Source 2) and liblist.gam (GoldSrc) set the search order. Source 2 Workshop Tools details are UNVERIFIED.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [],
+      "data_only": "Custom content folders and VPK repacking.",
+      "pitfalls": [
+        "VAC bans modifications to executables and DLLs on VAC-secured servers"
+      ]
+    },
+    {
+      "id": "rpgmaker",
+      "name": "RPG Maker (MV, MZ, XP, VX, VX Ace)",
+      "signatures": [
+        {
+          "glob": "www/js/rpg_core.js",
+          "basis": "convention (MV; not verified on a primary page)"
+        },
+        {
+          "glob": "js/rmmz_core.js",
+          "basis": "convention (MZ; not verified)"
+        },
+        {
+          "glob": "Game.ini",
+          "basis": "convention (XP/VX/VX Ace; not verified)"
+        },
+        {
+          "glob": "Data/*.rxdata",
+          "basis": "convention"
+        },
+        {
+          "glob": "Data/*.rvdata2",
+          "basis": "convention"
+        },
+        {
+          "glob": "RGSS*.dll",
+          "basis": "convention"
+        }
+      ],
+      "min_hits": 1,
+      "also_see": "electron-nwjs",
+      "routes": [
+        {
+          "id": "rpgmaker-data",
+          "name": "Edit data and scripts (JSON / JavaScript for MV and MZ; Ruby scripts for XP/VX/Ace)",
+          "kind": "data",
+          "needs_tools": [],
+          "platforms": [
+            "any"
+          ],
+          "status": "UNVERIFIED: no official RPG Maker page was reachable in research",
+          "source": "https://github.com/nwjs/nw.js",
+          "notes": "MV and MZ games run on NW.js, so the Electron/NW.js route also applies. Treat file names and routes as unconfirmed; check the RPG Maker documentation.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [],
+      "data_only": "JSON data files and plugin scripts (MV/MZ).",
+      "pitfalls": [
+        "All RPG Maker facts here are UNVERIFIED"
+      ]
+    },
+    {
+      "id": "bethesda",
+      "name": "Bethesda Creation Engine (Skyrim, Fallout 4)",
+      "signatures": [
+        {
+          "glob": "Data/Skyrim.esm",
+          "basis": "convention"
+        },
+        {
+          "glob": "Data/Fallout4.esm",
+          "basis": "convention"
+        },
+        {
+          "glob": "Data/SkyrimSE.esm",
+          "basis": "convention"
+        }
+      ],
+      "min_hits": 1,
+      "routes": [
+        {
+          "id": "skse-mo2",
+          "name": "SKSE / F4SE with Mod Organizer 2 or Vortex, xEdit for plugins",
+          "kind": "loader",
+          "needs_tools": [
+            "skse",
+            "mo2",
+            "xedit"
+          ],
+          "platforms": [
+            "windows"
+          ],
+          "status": "updated per game patch (SKSE page carries a warning dated 2026-08-14 about an incoming Skyrim update)",
+          "source": "https://skse.silverlock.org/",
+          "notes": "Match the script extender build to the exact game version. Creation Kit basics were UNVERIFIED in research.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "xedit"
+      ],
+      "data_only": "Plugins (.esp/.esm) and loose assets via a mod manager.",
+      "pitfalls": [
+        "A game update breaks script-extender mods until they are updated"
+      ]
+    },
+    {
+      "id": "native",
+      "name": "Native game with no known mod support (fallback)",
+      "signatures": [],
+      "fallback": true,
+      "routes": [
+        {
+          "id": "native-reverse",
+          "name": "Reverse engineering: Ghidra / x64dbg / Frida / RenderDoc",
+          "kind": "re",
+          "needs_tools": [
+            "ghidra",
+            "frida"
+          ],
+          "platforms": [
+            "any"
+          ],
+          "status": "maintained tools (Cheat Engine last release 2023)",
+          "source": "https://github.com/NationalSecurityAgency/ghidra",
+          "notes": "Use only on a game you own, offline; run the game-recon step first to identify the engine.",
+          "verified": "2026-11-12"
+        }
+      ],
+      "re_tools": [
+        "ghidra",
+        "frida",
+        "x64dbg",
+        "renderdoc"
+      ],
+      "data_only": "Look for loose data files before touching the executable.",
+      "pitfalls": [
+        "Modifying executables is blocked by most anti-cheat"
+      ]
+    }
+  ],
+  "anticheat": [
+    {
+      "id": "eac",
+      "name": "Easy Anti-Cheat",
+      "signatures": [
+        {
+          "glob": "EasyAntiCheat",
+          "basis": "convention"
+        },
+        {
+          "glob": "EasyAntiCheat_EOS",
+          "basis": "convention"
+        },
+        {
+          "glob": "*/EasyAntiCheat",
+          "basis": "convention"
+        }
+      ],
+      "meaning": "Epic says its integrity tool uses a signed catalog of file hashes: modified cataloged files can block you from protected multiplayer sessions, while offline, solo and unprotected modes still run.",
+      "source": "https://dev.epicgames.com/docs/game-services/anti-cheat/using-anti-cheat",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "battleye",
+      "name": "BattlEye",
+      "signatures": [
+        {
+          "glob": "BattlEye",
+          "basis": "convention"
+        },
+        {
+          "glob": "*/BattlEye",
+          "basis": "convention"
+        }
+      ],
+      "meaning": "BattlEye's FAQ says it generally bans only for actual cheats or components built to bypass it; overlays and tools like ReShade are generally supported unless the developer says otherwise (blocked in some games), and some programs can get you kicked.",
+      "source": "https://www.battleye.com/support/faq/",
+      "verified": "2026-11-12"
+    }
+  ],
+  "hubs": [
+    {
+      "id": "nexus",
+      "name": "Nexus Mods",
+      "rules": "Prohibits uploads that include copyrighted game files or images without permission from the owner; crediting is no substitute. AI policy: disclosure is mandatory for anything made with generative AI (tiers AI-Generated Content, AI Media, AI Assisted); enforced from 2027-01-02 after a 60-day grace period.",
+      "source": "https://help.nexusmods.com/article/180-ai-policy-changes-2026",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "thunderstore",
+      "name": "Thunderstore",
+      "rules": "Do not distribute game files like Assembly-CSharp.dll without permission. AI-generated assets or code should use the AI Generated category where it exists (not enforced for READMEs or icons); untested or non-functional AI mods are spam. A package is a zip with icon.png (256x256), README.md and manifest.json at the root.",
+      "source": "https://wiki.thunderstore.io/moderation/global-rules",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "steam-workshop",
+      "name": "Steam Workshop",
+      "rules": "Valve may remove Workshop contributions for any reason (Subscriber Agreement 6.B); app-specific terms can add rules. Steam's AI disclosure survey applies to games on Steam, not Workshop items. A Workshop-specific AI rule: UNVERIFIED.",
+      "source": "https://store.steampowered.com/subscriber_agreement/",
+      "verified": "2026-11-12"
+    },
+    {
+      "id": "modio",
+      "name": "mod.io",
+      "rules": "Uploads grant mod.io and the game admin a content licence and you warrant the content does not infringe others' rights; the Acceptable Use Policy applies. No AI clause found in the terms (Acceptable Use Policy not read).",
+      "source": "https://mod.io/terms",
+      "verified": "2026-11-12"
+    }
+  ],
+  "expiries": [
+    {
+      "date": "2027-01-02",
+      "what": "Nexus Mods begins enforcing its AI-content disclosure rules after the 60-day grace period",
+      "source": "https://help.nexusmods.com/article/180-ai-policy-changes-2026"
+    }
+  ],
+  "notes": "signatures marked \"convention\" are file names widely used but not confirmed on a primary page in our research; detection only suggests an engine, the user confirms. Routes marked UNVERIFIED must be checked against the engine's own documentation."
+}

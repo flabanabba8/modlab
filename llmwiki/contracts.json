@@ -2,6 +2,65 @@
   "status": "actual registered source schemas; handlers not executed for schema capture",
   "tools": [
     {
+      "name": "modlab_cleanup",
+      "description": "Show what ModLab uses on disk and free space safely. Default action report lists every lab with its size, the toolkit-run output, free disk space and the limits. Other actions (delete_lab with lab_id, prune_revisions, clear_toolkit_runs, remove_leftovers) are a DRY RUN that lists exactly what would be deleted and how much space it frees; they delete only with confirm=true, only inside ModLab's own data folder, and never touch the original game folder. Ask the user before confirming.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "report",
+              "delete_lab",
+              "prune_revisions",
+              "clear_toolkit_runs",
+              "remove_leftovers"
+            ]
+          },
+          "lab_id": {
+            "type": "string"
+          },
+          "keep": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 20
+          },
+          "confirm": {
+            "type": "boolean"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "modlab_setup",
+      "description": "First-use interview and environment scan. Without answers: returns what this computer has (installed modding tools, installed Steam games, and for a game_folder the engine it looks like, any anti-cheat, and the modding routes found for that engine with what each needs and what is missing), the questions to ask the user, and whether the built-in modding knowledge looks out of date (offering online research only if the user says yes). With answers: saves them, including the route the user picked. ModLab never picks a route for the user. Starts no game, installs nothing, sends nothing. modlab_toolkit and modlab_create return the interview until it is answered.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "game_folder": {
+            "type": "string",
+            "description": "Optional game folder to identify (local read of file names only)."
+          },
+          "answers": {
+            "type": "object",
+            "description": "game, idea, single_player_offline (bool), experience (new to modding|some experience|experienced), publish (private|share publicly), ai_assets (bool), has (text), route (the id of the route the user picked)."
+          },
+          "knowledge_updates": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object"
+            },
+            "description": "Only after the user said yes to online research: facts you verified on primary pages. Each item: id (from the modding wiki tables), field, value, source (https page), date (the day you read it). Saved as dated overrides; the shipped catalog is unchanged."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "modlab_resources",
       "description": "Discover actual installed Universal Modder/REA resources and the full game-modding workflow; no game, model or provider is started.",
       "parameters": {

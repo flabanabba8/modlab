@@ -1,10 +1,12 @@
 name: modlab
-version: "0.2.0"
+version: "0.3.0"
 description: "An all-in-one game-modding workbench using Universal Modder and Reverse Engineer Anything, from recon and assets through builds, testing and showcases."
 author: "ModLab contributors"
 license: GPL-3.0-or-later
 requires_hermes: ">=0.22.0"
 provides_tools:
+  - modlab_setup
+  - modlab_cleanup
   - modlab_resources
   - modlab_toolkit
   - modlab_rea_native
@@ -15,4 +17,7 @@ provides_tools:
   - modlab_select_preserved
 
 config_schema:
+  modlab_max_total_gb: {type: str, default: "25", description: "Most disk space all ModLab labs together may use, in GB. ModLab stops before a copy would pass it. Raise it only if you really have the space."}
+  modlab_min_free_gb: {type: str, default: "10", description: "ModLab never lets free disk space fall below this many GB (or 10 percent of the disk, whichever is larger)."}
+  modlab_keep_revisions: {type: str, default: "2", description: "Revisions kept per lab: the current one and the one before it for rollback. Older ones are deleted automatically (minimum 2). Your original game folder is never touched."}
   rea_native_tool: {type: str, default: "", description: "Optional selected registered native REA tool for this host. CLI analysis and main-agent native REA remain available; no credentials are copied."}

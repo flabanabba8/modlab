@@ -20,7 +20,7 @@ class ModLabTests(unittest.TestCase):
         self.game = self.root / 'game'
         self.game.mkdir()
         (self.game / 'data.txt').write_text('original')
-        self.lab = core.Lab(self.root / 'labs')
+        self.lab = core.Lab(self.root / 'labs', core.Limits(max_total=1 << 40, min_free=1, keep=50))
         self.created = self.lab.create(str(self.game))
         self.id = self.created['lab_id']
         self.zip = self.root / 'mod.zip'

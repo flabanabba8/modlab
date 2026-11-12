@@ -11,6 +11,26 @@ def resources(um_executable='',rea_executable=''):
         return {'installed':bool(value and Path(value).is_file()),'executable':value,'notice':'CLI presence only; game/platform/provider capabilities require the selected operation’s actual contract.'}
     return {'universal_modder':resolve(um_executable,'um'),'reverse_engineer_anything':resolve(rea_executable,'rea'),'workflow':['Define game/platform/idea and user resources','Recon and choose the actual modding route','Create a safe lab and build one working slice','Generate/review needed art directly in the MAIN session with native tools','Build and test in the real game using supported interfaces','Record the result; publication remains a separate explicitly authorized action'],'image_policy':'No retired context routes, worker agents or silent local image-model substitution. Native main-session image tools own image generation/review.'}
 
+MAX_RUN_FOLDERS = 20
+MAX_RUN_BYTES = 64 * 1024**2
+
+
+def prune_runs(root):
+    """Keep the newest toolkit run folders (and at most 64 MB); delete the rest. Only folders inside ModLab's own toolkit-runs folder."""
+    runs = Path(root) / 'toolkit-runs'
+    if not runs.is_dir(): return 0
+    folders = sorted((r for r in runs.iterdir() if r.is_dir() and not r.is_symlink() and r.name.startswith('run-')), key=lambda r: r.stat().st_mtime, reverse=True)
+    def size(r): return sum(f.stat().st_size for f in r.rglob('*') if f.is_file() and not f.is_symlink())
+    kept, total, removed = 0, 0, 0
+    for r in folders:
+        s_ = size(r)
+        if kept >= MAX_RUN_FOLDERS or total + s_ > MAX_RUN_BYTES:
+            shutil.rmtree(r, ignore_errors=True); removed += 1
+        else:
+            kept += 1; total += s_
+    return removed
+
+
 def run(root,toolkit,arguments,um_executable='',rea_executable='',timeout_seconds=60):
     if toolkit not in('universal-modder','rea')or not isinstance(arguments,list)or not arguments or len(arguments)>80 or not all(isinstance(x,str)and 0<len(x)<=4000 for x in arguments):raise ValueError('Select a real toolkit and bounded argument array')
     if type(timeout_seconds)is not int or not 1<=timeout_seconds<=600:raise ValueError('Choose a1–600second explicit operation bound')
@@ -35,6 +55,7 @@ def run(root,toolkit,arguments,um_executable='',rea_executable='',timeout_second
     if output.stat().st_size>2*1024**2:raise ValueError('Toolkit output exceeds2MiB; request a bounded operation or use its supported retained-evidence interface. Private full output retained.')
     if process.returncode:raise RuntimeError('Selected toolkit operation failed; inspect its private diagnostics. No success or automatic retry inferred.')
     body=output.read_text(errors='replace')
+    prune_runs(root)
     try:result=json.loads(body)
     except ValueError:result={'text':body}
     return {'toolkit':toolkit,'exit_code':0,'result':result,'notice':'Actual selected CLI output; provider/platform readiness and result meaning depend on the operation. No model worker was launched.'}

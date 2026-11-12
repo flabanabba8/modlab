@@ -25,3 +25,16 @@ Create an isolated working copy of a game folder, review the files a ZIP mod wou
 Each revision is a full copy. Expect substantial local disk and hashing time; use a game that runs from a copied folder. Locked files, launchers, DRM, saves outside the folder, installers, symbolic links, extended file metadata and platform-specific integrations may prevent a copy from working. Regular-file hashing and copying reject final symlinks, Windows reparse points such as junctions, and changed or atomically replaced files. Where the OS supplies no-follow file opens they are used; Windows lacks that guarantee, and the plugin is not an adversarial filesystem sandbox. POSIX mode and timestamps are copied where supported; Windows permissions and timestamps are not guaranteed. The copy/revision adapter supports ordinary ZIP file overlays only: it does not resolve logical mod conflicts, run installers, track external saves, or guarantee that a game launches. Rolling back switches the selected directory; it does not stop an already-running game. ZIPs and game files are untrusted data.
 
 Tested on Linux with synthetic local folders, including a small executable fixture run from the original, modified and rolled-back copies. A real local game distribution was also copied, given a synthetic marker and rolled back without launching the game; the original executable remained unchanged. A native Windows synthetic copy, apply, rollback and lock test passed. No real mod or game-launch test has been completed, and Windows ACLs remain unverified. Private data and revisions reside in the Hermes plugin data directory, and persist until removed by the user. Do not share a lab directory without reviewing its contents.
+
+## Disk safety (read this: a lab is a full copy of a game)
+
+A lab holds real copies of a game folder, which can be many gigabytes. ModLab therefore:
+
+- never lets free disk space fall below a reserve (10 GB or 10 percent of the disk, whichever is larger; setting `modlab_min_free_gb`) and checks before every file it writes, so a copy that would breach it stops and removes its own partial work;
+- keeps all labs together under a total cap (default 25 GB; setting `modlab_max_total_gb`) and refuses a game larger than the cap before copying a byte;
+- uses copy-on-write cloning when the filesystem supports it (Btrfs, XFS, APFS), so a new revision costs almost no space; on ext4 and NTFS it makes real copies, so the cap matters;
+- keeps only the last revisions of a lab (default 2, the current one and the one before for rollback; setting `modlab_keep_revisions`) and deletes older ones after each apply; your original game folder is never touched, so the pristine copy is always the game itself;
+- keeps toolkit output to the newest 20 runs and 64 MB, and removes unfinished lab folders left by a crash;
+- offers `modlab_cleanup`: a report of what ModLab uses, and dry-run-first deletion that only ever touches ModLab's own data folder and only with `confirm=true`. Tell the user what it would delete and free before confirming.
+
+The shipped plugin contains no game files, archives or lab data (a test enforces a small release).
